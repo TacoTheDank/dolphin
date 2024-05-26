@@ -2,7 +2,6 @@
 
 package org.dolphinemu.dolphinemu.activities
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Rect
@@ -18,6 +17,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -216,7 +216,7 @@ class EmulationActivity : AppCompatActivity(), ThemeProvider {
             DirectoryInitialization.start(this);
         }
 
-        DolphinSensorEventListener.setDeviceRotation(windowManager.defaultDisplay.rotation)
+        DolphinSensorEventListener.setDeviceRotation(ContextCompat.getDisplayOrDefault(this).rotation)
     }
 
     override fun onStop() {
@@ -391,7 +391,7 @@ class EmulationActivity : AppCompatActivity(), ThemeProvider {
             val cutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
             val mlpMenu = v.layoutParams as MarginLayoutParams
             val menuWidth = resources.getDimensionPixelSize(R.dimen.menu_width)
-            if (ViewCompat.getLayoutDirection(v) == ViewCompat.LAYOUT_DIRECTION_LTR) {
+            if (v.getLayoutDirection() == View.LAYOUT_DIRECTION_LTR) {
                 mlpMenu.width = cutInsets.left + menuWidth
             } else {
                 mlpMenu.width = cutInsets.right + menuWidth

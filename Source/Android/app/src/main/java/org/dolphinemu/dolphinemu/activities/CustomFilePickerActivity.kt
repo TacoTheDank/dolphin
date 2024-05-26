@@ -4,6 +4,7 @@ package org.dolphinemu.dolphinemu.activities
 
 import android.os.Bundle
 import android.os.Environment
+import androidx.core.content.IntentCompat
 import com.nononsenseapps.filepicker.AbstractFilePickerFragment
 import com.nononsenseapps.filepicker.FilePickerActivity
 import org.dolphinemu.dolphinemu.fragments.CustomFilePickerFragment
@@ -15,7 +16,7 @@ class CustomFilePickerActivity : FilePickerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (intent != null) {
-            extensions = intent.getSerializableExtra(EXTRA_EXTENSIONS) as HashSet<String>?
+            extensions = IntentCompat.getSerializableExtra(intent, EXTRA_EXTENSIONS, String::class.java) as HashSet<String>?
         }
     }
 
